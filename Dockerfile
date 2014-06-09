@@ -12,6 +12,7 @@ RUN go get 'bitbucket.org/liamstask/goose/cmd/goose'
 
 #mount the app
 RUN mkdir -p /opt/go/app/db
+ADD ./dbconf.yml /opt/go/app/dbconf.yml
 ONBUILD ADD ./ /opt/go/app/db/
 
 #set the working directory to /opt/go/app
