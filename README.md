@@ -17,15 +17,8 @@ Also make sure you pass in the database credentials as environment variables, th
 * DB_PASSWORD - The users password
 * DB_DRIVER - The name of the database driver, from [this list](https://code.google.com/p/go-wiki/wiki/SQLDrivers)
 
+To build the migrations container, run docker from your apps db directory:
 ```
-$ pwd
-myapp/db/
-
-$ ls -l
-migrations/
-dbconf.yml
-Dockerfile
-
 # mounts the local directory into the container
 $ docker build -t myapp_migration ./
 
