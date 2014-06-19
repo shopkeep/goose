@@ -17,6 +17,7 @@ Also make sure you pass in the database credentials as environment variables, th
 * DB_NAME - The name of the database
 * DB_USER - The username used to connect to the database
 * DB_PASSWORD - The users password
+* DB_SSL_MODE (optional) - The SSL mode, one of: disable, require (default), verify-full
 
 To build the migrations container, run docker from your apps db directory:
 ```
@@ -24,14 +25,14 @@ To build the migrations container, run docker from your apps db directory:
 $ docker build -t myapp_migration ./
 
 # container exits when complete
-$ docker run -i -e "DB_HOST=dbhost" -e "DB_PORT=dbport" -e "DB_NAME=dbname" -e "DB_USER=dbuser" -e "DB_PASSWORD=dbpass" -t myapp_migration
+$ docker run -i -e "DB_HOST=dbhost" -e "DB_PORT=dbport" -e "DB_NAME=dbname" -e "DB_USER=dbuser DB_SSL_MODE=disable" -e "DB_PASSWORD=dbpass" -t myapp_migration
 ```
 
 The migrations directory is mounted at build-time, which includes entrypoint, and default CMD args. You can customize what migration is used by overriding the CMD args:
 
 ```
-$ docker run -i -e "DB_HOST=dbhost" -e "DB_PORT=dbport" -e "DB_NAME=dbname" -e "DB_USER=dbuser" -e "DB_PASSWORD=dbpass" -t myapp_migration down
-$ docker run -i -e "DB_HOST=dbhost" -e "DB_PORT=dbport" -e "DB_NAME=dbname" -e "DB_USER=dbuser" -e "DB_PASSWORD=dbpass" -t myapp_migration up
+$ docker run -i -e "DB_HOST=dbhost" -e "DB_PORT=dbport" -e "DB_NAME=dbname" -e "DB_USER=dbuser" -e "DB_PASSWORD=dbpass" -e "DB_SSL_MODE=require" -t myapp_migration down
+$ docker run -i -e "DB_HOST=dbhost" -e "DB_PORT=dbport" -e "DB_NAME=dbname" -e "DB_USER=dbuser" -e "DB_PASSWORD=dbpass" -e "DB_SSL_MODE=require" -t myapp_migration up
 ```
 
 Instead of passing in environment arguments manually, you can define an environment file and pass it into docker using
